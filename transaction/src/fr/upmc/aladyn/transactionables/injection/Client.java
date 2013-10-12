@@ -41,10 +41,8 @@ public class Client {
 			c.setSomme(1000);
 			this.compte = c;
 			System.out.println("Client : mistake : new compte : " + getCompte());
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 			throw new IOException();
 		} catch (IOException e){
-			System.out.println("=======================================");
 		}
 	}
 }

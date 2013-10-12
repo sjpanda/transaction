@@ -3,10 +3,6 @@ package fr.upmc.aladyn.transactionables.injection;
 import java.util.ArrayList;
 import java.util.List;
 
-import banque.Banque;
-import banque.Client;
-import banque.Compte;
-
 /**
  * @author Abdoul Diallo
  * @author Jing Shu

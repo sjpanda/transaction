@@ -1,7 +1,6 @@
 package fr.upmc.aladyn.transactionables.injection;
 
 
-import java.io.IOException;
 import java.util.List;
 
 import javassist.CannotCompileException;
@@ -45,12 +44,14 @@ public class Injection {
 						cm.setExceptionTypes(etypes);
 						
 						// injecter les catch/finally existants avec la methode de restauration
-//						cm.instrument(
-//								new ExprEditor(){
-//									public void edit(Handler h) throws CannotCompileException{
-//										h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }");
-//									}
-//								});
+						cm.instrument(
+								new ExprEditor(){
+									public void edit(Handler h) throws CannotCompileException{
+										
+										h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
+										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }");
+									}
+								});
 						
 						// ajouter un catch pour restaurer si une exception est levée
 						cm.addCatch("{ saveRestore.restore($0); throw $e; }", etype);
