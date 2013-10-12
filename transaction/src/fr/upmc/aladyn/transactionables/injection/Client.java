@@ -1,5 +1,7 @@
 package fr.upmc.aladyn.transactionables.injection;
 
+import java.io.IOException;
+
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
 /**
@@ -32,10 +34,17 @@ public class Client {
 	}
 	
 	@Transactionable
-	public void mistake() throws Exception{
+	public void mistake(){
+		try {
+			System.out.println("Client : mistake : old compte : " + getCompte());
 			Compte c = new Compte(this);
 			c.setSomme(1000);
 			this.compte = c;
-			throw new Exception();
+			System.out.println("Client : mistake : new compte : " + getCompte());
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+			throw new IOException();
+		} catch (IOException e){
+			System.out.println("=======================================");
+		}
 	}
 }

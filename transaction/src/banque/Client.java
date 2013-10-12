@@ -44,6 +44,7 @@ public class Client {
 			throw new Exception();
 		} catch (Exception e){
 			srb.restore(this);
+			throw new Exception();
 		}
 	}
 }

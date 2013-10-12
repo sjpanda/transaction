@@ -75,6 +75,7 @@ public class Banque {
 			}
 		} catch (Exception e){
 			srb.restore(this);
+			throw new Exception();
 		}
 		System.out.println();
 	}

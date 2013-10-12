@@ -10,7 +10,7 @@ public class Compte {
 	
 	public Compte(Client c){
 		this.somme = 0;
-		this.client = client;
+		this.client = c;
 	}
 	
 	public double getSomme() {

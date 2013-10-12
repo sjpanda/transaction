@@ -14,13 +14,13 @@ import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 public class Banque {
 	
 	private String nom;
-	private ArrayList<Compte> compte;
+	private ArrayList<Compte> comptes;
 	
 	/**
 	 * @param nom le nom de la banque
 	 */
 	public Banque(String nom){
-		this.compte = new ArrayList<Compte>();
+		this.comptes = new ArrayList<Compte>();
 		this.nom = nom;
 	}
 
@@ -41,15 +41,15 @@ public class Banque {
 	/**
 	 * @return la liste des comptes
 	 */
-	public ArrayList<Compte> getCompte(){
-		return compte;
+	public ArrayList<Compte> getComptes(){
+		return comptes;
 	}
 
 	/**
 	 * @param compte une liste de comptes
 	 */
-	public void setCompte(ArrayList<Compte> compte){
-		this.compte = compte;
+	public void setComptes(ArrayList<Compte> comptes){
+		this.comptes = comptes;
 	}
 	
 	/**
@@ -58,17 +58,19 @@ public class Banque {
 	 */
 	@Transactionable
 	public void add(Compte compte) throws Exception{
-			setNom("BNP");
-			
-			if(this.compte.size() > 0){
-				System.out.println("==============");
-				displayFields();
-				System.out.println("==============");
-				throw new Exception();
-			} else {
-				this.compte.add(compte);
-				compte.getClient().mistake();
-			}
+		setNom("BNP");
+		System.out.println("Change Banque name :  ");
+		displayFields();
+		
+		if(this.comptes.size() > 0){
+			System.out.println("Banque exception : ");
+			throw new Exception();
+		} else {
+			System.out.println("Banque -> client exception : ");
+			this.comptes.add(compte);
+			compte.getClient().mistake();
+		}
+		System.out.println();
 	}
 	
 	/**
@@ -76,7 +78,7 @@ public class Banque {
 	 * @return true si la suppresion a eu lieu, false si la suppresion échoue
 	 */
 	public boolean remove(Compte compte){
-		return this.compte.remove(compte);
+		return this.comptes.remove(compte);
 	}
 
 	public void displayFields(){

@@ -3,6 +3,10 @@ package fr.upmc.aladyn.transactionables.injection;
 import java.util.ArrayList;
 import java.util.List;
 
+import banque.Banque;
+import banque.Client;
+import banque.Compte;
+
 /**
  * @author Abdoul Diallo
  * @author Jing Shu
@@ -16,24 +20,34 @@ public class MainInjection {
 		Compte cp2 = new Compte(c2);
 		c1.setCompte(cp1);
 		c2.setCompte(cp2);
-		
+		System.out.println("Initial :  ");
 		b.displayFields();
-		System.out.println(c1.getCompte());
+		System.out.println("Compte de Bob : " + c1.getCompte());
+		System.out.println();
 		
 		List<String> classes = new ArrayList<String>();
 		classes.add("fr.upmc.aladyn.transactionables.injection.Banque");
 		classes.add("fr.upmc.aladyn.transactionables.injection.Client");
 		classes.add("fr.upmc.aladyn.transactionables.injection.Compte");
 		Injection.injecter(classes);
+		
+		System.out.println("First add :  ");
 		try {
 			b.add(cp1);
-			b.add(cp2);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+		} catch (Exception e) {}
+		System.out.println("\nAfter first add : ");
 		b.displayFields();
-		System.out.println(c1.getCompte());
+		System.out.println("Compte de Bob : " + c1.getCompte());
+		System.out.println();
+		
+		System.out.println("Second add :  ");
+		try {
+			b.add(cp2);
+		} catch (Exception e) {}
+		System.out.println("\nAfter second add : ");
+		b.displayFields();
+		System.out.println("Compte de Bob : " + c1.getCompte());
+		System.out.println();
 	}
 
 }
