@@ -1,6 +1,7 @@
 package fr.upmc.aladyn.transactionables.injection;
 
 
+import java.io.IOException;
 import java.util.List;
 
 import javassist.CannotCompileException;
@@ -47,8 +48,8 @@ public class Injection {
 						cm.instrument(
 								new ExprEditor(){
 									public void edit(Handler h) throws CannotCompileException{
-										
-										h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
+										h.insertBefore("{ System.out.println(222); }");
+										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }");
 									}
 								});
@@ -62,7 +63,6 @@ public class Injection {
 			} catch (CannotCompileException e) {
 				e.printStackTrace();
 			}
-			
 		}
 	}
 }
