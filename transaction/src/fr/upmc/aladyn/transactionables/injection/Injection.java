@@ -1,7 +1,6 @@
 package fr.upmc.aladyn.transactionables.injection;
 
 
-import java.io.IOException;
 import java.util.List;
 
 import javassist.CannotCompileException;
