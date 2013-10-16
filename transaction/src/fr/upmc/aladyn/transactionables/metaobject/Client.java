@@ -1,4 +1,4 @@
-package fr.upmc.aladyn.transactionables.metaobjet;
+package fr.upmc.aladyn.transactionables.metaobject;
 
 import java.io.IOException;
 
