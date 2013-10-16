@@ -17,11 +17,14 @@ public class VerboseMetaobj extends Metaobject{
 	public Object trapMethodCall(int identifier, Object[] args) throws Throwable{
 		System.out.println("trap method call : " + getMethodName(identifier) + "() in " + getClassMetaobject().getName());
 		
-		Class<?>[] paramsTypes = new Class[args.length];
-		for(int i=0; i<args.length; i++){
-			paramsTypes[i] = args[i].getClass();
-		}
-		Method m = getObject().getClass().getDeclaredMethod(getMethodName(identifier), paramsTypes);
+//		Class<?>[] paramsTypes = new Class[args.length];
+//		for(int i=0; i<args.length; i++){
+//			paramsTypes[i] = args[i].getClass();
+//		}
+//		Method m = getObject().getClass().getDeclaredMethod(getMethodName(identifier), paramsTypes);
+		
+		Method m = methods[identifier];
+		System.out.println("=== test === : " + m.getName());
 		Object res = null;
 		if(m.isAnnotationPresent(Transactionable.class)){
 			SaveRestore sr = new SaveRestore();

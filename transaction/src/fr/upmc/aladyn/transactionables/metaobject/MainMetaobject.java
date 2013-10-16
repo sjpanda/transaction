@@ -17,10 +17,11 @@ public class MainMetaobject {
 			cl.makeReflective(Client.class.getName(), 
 					VerboseMetaobj.class.getName(), 
 					"javassist.tools.reflect.ClassMetaobject");
+			cl.makeReflective(Main.class.getName(), 
+					VerboseMetaobj.class.getName(), 
+					"javassist.tools.reflect.ClassMetaobject");
 			
-			cl.run(Banque.class.getName(), args);
-			cl.run(Compte.class.getName(), args);
-			cl.run(Client.class.getName(), args);
+			cl.run(Main.class.getName(), args);
 		} catch (CannotCompileException e) {
 			e.printStackTrace();
 		} catch (NotFoundException e) {

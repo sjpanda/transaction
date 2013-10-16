@@ -34,16 +34,16 @@ public class Client {
 	}
 	
 	@Transactionable
-	public void mistake(){
-		try {
+	public void mistake() throws IOException{
+		//try {
 			System.out.println("Client : mistake : old compte : " + getCompte());
 			Compte c = new Compte(this);
 			c.setSomme(1000);
 			this.compte = c;
 			System.out.println("Client : mistake : new compte : " + getCompte());
 			throw new IOException();
-		} catch (IOException e){
+		//} catch (IOException e){
 			//System.out.println(332);
-		}
+		//}
 	}
 }
