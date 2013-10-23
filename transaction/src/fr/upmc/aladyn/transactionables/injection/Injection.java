@@ -27,41 +27,44 @@ public class Injection {
 				if(! cc.hasAnnotation(Transactionable.class)){
 					continue;
 				}
-				
+
 				CtClass ccSaveRestore = pool.get(SaveRestore.class.getPackage().getName() + ".SaveRestore");
 				CtField fSaveRestore = new CtField(ccSaveRestore, "saveRestore", cc);
 				fSaveRestore.setModifiers(Modifier.PRIVATE);
 				cc.addField(fSaveRestore);
-				
-				CtField fSelf = new CtField(ccSaveRestore, "saveRestore", cc);
-				fSaveRestore.setModifiers(Modifier.PRIVATE);
-				cc.addField(fSaveRestore);
-				
+
+				CtField fSelf = new CtField(cc, "myself", cc);
+				fSelf.setModifiers(Modifier.PRIVATE);
+				cc.addField(fSelf);
+
+				CtClass etype = pool.get("java.lang.Exception");
+				CtField efield = new CtField(etype, "exceptn", cc);
+				efield.setModifiers(Modifier.PRIVATE);
+				cc.addField(efield);
+
 				CtMethod[] cms = cc.getDeclaredMethods();
 				for(CtMethod cm : cms){
 					if (cm.hasAnnotation(Transactionable.class)){
 						// backup au debut de la methode
 						String before = "{ saveRestore = new " + SaveRestore.class.getPackage().getName() + ".SaveRestore(); saveRestore.save($0);}";
 						cm.insertBefore(before);
-						
+
 						// add "throws Exception" a la signature de la methode
-						CtClass etype = pool.get("java.lang.Exception");
 						CtClass[] etypes = { etype };
 						cm.setExceptionTypes(etypes);
-						
+
 						// injecter les catch/finally existants avec la methode de restauration
 						cm.instrument(
 								new ExprEditor(){
 									public void edit(Handler h) throws CannotCompileException{
-										//h.insertBefore("{ System.out.println($1); }");
-										//h.insertBefore("{ throw new Exception(); }");
-										h.insertBefore("{ System.out.println(22); }");
+										h.insertBefore("{ throw efield; }");
+										//h.insertBefore("{ System.out.println(22); }");
 										//h.insertBefore("{ saveRestore.restore($0); throw new Exception(); }");
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }");
 									}
 								});
-						
+
 						// ajouter un catch pour restaurer si une exception est levée
 						cm.addCatch("{ saveRestore.restore($0); throw $e; }", etype);
 					}

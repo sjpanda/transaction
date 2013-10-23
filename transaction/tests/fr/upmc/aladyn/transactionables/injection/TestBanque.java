@@ -1,14 +1,12 @@
 package fr.upmc.aladyn.transactionables.injection;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import fr.upmc.aladyn.transactionables.injection.Banque;
 import fr.upmc.aladyn.transactionables.injection.Client;
 import fr.upmc.aladyn.transactionables.injection.Compte;
 import fr.upmc.aladyn.transactionables.injection.SaveRestore;
-
+import static org.junit.Assert.*;
 public class TestBanque {
 
 	@Test
