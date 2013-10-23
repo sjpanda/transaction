@@ -27,10 +27,16 @@ public class Injection {
 				if(! cc.hasAnnotation(Transactionable.class)){
 					continue;
 				}
+				
 				CtClass ccSaveRestore = pool.get(SaveRestore.class.getPackage().getName() + ".SaveRestore");
 				CtField fSaveRestore = new CtField(ccSaveRestore, "saveRestore", cc);
 				fSaveRestore.setModifiers(Modifier.PRIVATE);
 				cc.addField(fSaveRestore);
+				
+				CtField fSelf = new CtField(ccSaveRestore, "saveRestore", cc);
+				fSaveRestore.setModifiers(Modifier.PRIVATE);
+				cc.addField(fSaveRestore);
+				
 				CtMethod[] cms = cc.getDeclaredMethods();
 				for(CtMethod cm : cms){
 					if (cm.hasAnnotation(Transactionable.class)){
@@ -47,8 +53,8 @@ public class Injection {
 						cm.instrument(
 								new ExprEditor(){
 									public void edit(Handler h) throws CannotCompileException{
-										h.insertBefore("{ System.out.println(222); }");
-										//h.insertBefore("{ saveRestore.restore($0); throw new Exception(); }");
+										//h.insertBefore("{ System.out.println($1); }");
+										h.insertBefore("{ throw new Exception(); }");
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }");
 									}
