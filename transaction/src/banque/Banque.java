@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
+import banque.Compte;
 
 /**
  * @author Abdoul Diallo
@@ -12,10 +13,10 @@ import fr.upmc.aladyn.transactionables.annotations.Transactionable;
  */
 @Transactionable
 public class Banque {
-	
+
 	private String nom;
 	private ArrayList<Compte> comptes;
-	
+
 	/**
 	 * @param nom le nom de la banque
 	 */
@@ -37,7 +38,7 @@ public class Banque {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
+
 	/**
 	 * @return la liste des comptes
 	 */
@@ -51,7 +52,7 @@ public class Banque {
 	public void setComptes(ArrayList<Compte> comptes){
 		this.comptes = comptes;
 	}
-	
+
 	/**
 	 * @param compte un compte � ajouter dans la banque
 	 * @throws Exception
@@ -64,7 +65,7 @@ public class Banque {
 			setNom("BNP");
 			System.out.println("Change Banque name :  ");
 			displayFields();
-			
+
 			if(this.comptes.size() > 0){
 				System.out.println("Banque exception : ");
 				throw new Exception();
@@ -78,7 +79,7 @@ public class Banque {
 			throw new Exception();
 		}
 	}
-	
+
 	/**
 	 * @param compte un compte � retirer de la banque
 	 * @return true si la suppresion a eu lieu, false si la suppresion �choue
@@ -95,6 +96,18 @@ public class Banque {
 				System.out.println("Field of Banque : " + Modifier.toString(f.getModifiers()) + " " + f.getType().getName() + " " + f.getName() + " = " + f.get(this));
 			} catch (IllegalArgumentException | IllegalAccessException e1) {
 				e1.printStackTrace();
+			}
+		}
+	}
+
+	public void retraitMensuelle(double d) {
+
+		for(Compte c : comptes){
+			try {
+				c.debiter(d);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
