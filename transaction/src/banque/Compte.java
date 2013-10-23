@@ -1,5 +1,8 @@
 package banque;
 
+import fr.upmc.aladyn.transactionables.annotations.Transactionable;
+import fr.upmc.aladyn.transactionables.injection.SaveRestore;
+
 /**
  * @author Abdoul Diallo
  * @author Jing Shu
@@ -28,11 +31,18 @@ public class Compte {
 		this.client = c;
 	}
 	
-	public void debiter(int s){
+	@Transactionable
+	public void debiter(double s) throws Exception{
+		SaveRestore srb = new SaveRestore();
+		srb.save(this);
 		this.somme -= s;
+		if(this.somme < -100.0){
+			srb.restore(this);
+			throw new Exception();
+		}
 	}
 	
-	public void crediter(int s){
+	public void crediter(double s){
 		this.somme += s;
 	}
 	
