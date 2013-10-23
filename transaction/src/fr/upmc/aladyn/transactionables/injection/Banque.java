@@ -4,6 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 
+import fr.upmc.aladyn.transactionables.injection.Compte;
+
 import fr.upmc.aladyn.transactionables.annotations.Transactionable;
 
 /**
@@ -89,6 +91,18 @@ public class Banque {
 				System.out.println("Field : " + Modifier.toString(f.getModifiers()) + " " + f.getType().getName() + " " + f.getName() + " " + f.get(this));
 			} catch (IllegalArgumentException | IllegalAccessException e1) {
 				e1.printStackTrace();
+			}
+		}
+	}
+
+	public void retraitMensuelle(double d) {
+
+		for(Compte c : comptes){
+			try {
+				c.debiter(d);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 	}
