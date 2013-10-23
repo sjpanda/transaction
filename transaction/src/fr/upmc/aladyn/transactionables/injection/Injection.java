@@ -54,7 +54,7 @@ public class Injection {
 								new ExprEditor(){
 									public void edit(Handler h) throws CannotCompileException{
 										//h.insertBefore("{ System.out.println($1); }");
-										h.insertBefore("{ throw new Exception(); }");
+										//h.insertBefore("{ throw new Exception(); }");
 										h.insertBefore("{ System.out.println(22); }");
 										//h.insertBefore("{ saveRestore.restore($0); throw new Exception(); }");
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
