@@ -57,8 +57,14 @@ public class Injection {
 						cm.instrument(
 								new ExprEditor(){
 									public void edit(Handler h) throws CannotCompileException{
-										h.insertBefore("{ throw efield; }");
-										//h.insertBefore("{ System.out.println(22); }");
+										
+										
+										System.out.println(">>>>>>>>>>>>>> " + h.where().getName());
+										h.insertBefore("{ System.out.println(22); }");
+										
+										
+										
+										//h.insertBefore("{ throw efield; }");
 										//h.insertBefore("{ saveRestore.restore($0); throw new Exception(); }");
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }");
@@ -66,7 +72,7 @@ public class Injection {
 								});
 
 						// ajouter un catch pour restaurer si une exception est levée
-						cm.addCatch("{ saveRestore.restore($0); throw $e; }", etype);
+						//cm.addCatch("{ saveRestore.restore($0); throw $e; }", etype);
 					}
 				}
 			} catch (NotFoundException e) {

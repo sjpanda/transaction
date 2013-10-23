@@ -43,7 +43,7 @@ public class Client {
 			System.out.println("Client : mistake : new compte : " + getCompte());
 			throw new IOException();
 		} catch (IOException e){
-			//System.out.println(332);
+			System.out.println(332);
 		}
 	}
 }
