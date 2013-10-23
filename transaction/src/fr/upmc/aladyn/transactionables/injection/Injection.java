@@ -57,7 +57,7 @@ public class Injection {
 						cm.instrument(
 								new ExprEditor(){
 									public void edit(Handler h) throws CannotCompileException{
-										//h.insertBefore("{ throw efield; }");
+										h.insertBefore("{ throw efield; }");
 										//h.insertBefore("{ System.out.println(22); }");
 										//h.insertBefore("{ saveRestore.restore($0); throw new Exception(); }");
 										//h.replace("{ $_ = $proceed($$); saveRestore.restore($0); throw new Exception(); }", this);
