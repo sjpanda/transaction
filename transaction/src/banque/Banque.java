@@ -53,7 +53,7 @@ public class Banque {
 	}
 	
 	/**
-	 * @param compte un compte à ajouter dans la banque
+	 * @param compte un compte ï¿½ ajouter dans la banque
 	 * @throws Exception
 	 */
 	@Transactionable
@@ -77,12 +77,11 @@ public class Banque {
 			srb.restore(this);
 			throw new Exception();
 		}
-		System.out.println();
 	}
 	
 	/**
-	 * @param compte un compte à retirer de la banque
-	 * @return true si la suppresion a eu lieu, false si la suppresion échoue
+	 * @param compte un compte ï¿½ retirer de la banque
+	 * @return true si la suppresion a eu lieu, false si la suppresion ï¿½choue
 	 */
 	public boolean remove(Compte compte){
 		return this.comptes.remove(compte);
