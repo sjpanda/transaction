@@ -72,7 +72,6 @@ public class TestBanque {
 
 	@Test
 	public void testSaveRestaure() {
-		//on sauvegarde avant
 		
 		//on cree notre client
 		Client c1 = new Client("c1");
