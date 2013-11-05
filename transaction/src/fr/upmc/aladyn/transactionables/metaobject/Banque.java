@@ -92,4 +92,9 @@ public class Banque {
 			}
 		}
 	}
+	
+	public String toString(){
+		this.setNom("toto");
+		return "1223";
+	}
 }
